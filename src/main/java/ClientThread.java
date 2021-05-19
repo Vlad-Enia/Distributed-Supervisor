@@ -1,8 +1,10 @@
 
 import Entity.Professor;
 import Entity.Student;
+import Entity.Task;
 import Repository.ProfessorRepository;
 import Repository.StudentRepository;
+import Repository.TaskRepository;
 import com.google.gson.Gson;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
@@ -64,7 +66,8 @@ class ClientThread extends Thread {
                                 out.println(raspuns);
                                 out.flush();
                             }
-                        }else if(request.startsWith("register2")){
+                        }
+                        else if(request.startsWith("register2")){
                             /* Create a student*/
                             String studentJSON=request.substring(10);
                             Student studentFromJSON=gson.fromJson(studentJSON,Student.class);
@@ -95,6 +98,7 @@ class ClientThread extends Thread {
                                 raspuns+="professor does not exist!";
                             }else{
                                 raspuns+=" professor logged in!";
+                                logged=true;
                             }
                             out.println(raspuns);
                             out.flush();
@@ -108,6 +112,7 @@ class ClientThread extends Thread {
                                 raspuns+="student does not exist!";
                             }else{
                                 raspuns+=" student logged in!";
+                                logged=true;
                             }
                             out.println(raspuns);
                             out.flush();
@@ -119,6 +124,28 @@ class ClientThread extends Thread {
                         out.println(raspuns);
                         out.flush();
                     }
+                }
+                else if(request.startsWith("task")){
+                    raspuns+="Task received ";
+                    if(request.startsWith("task add")){
+                        raspuns+=" to be created, ";
+                        String taskJson=request.substring(9);
+                        Task taskFromJSON=gson.fromJson(taskJson, Task.class);
+                        try{
+                            TaskRepository.createTask(taskFromJSON,instance);
+                            raspuns+=" task created!";
+                        }catch(RollbackException e){
+                            raspuns+=" but task is already in the DB";
+                        }finally{
+                            out.println(raspuns);
+                            out.flush();
+                        }
+
+                    }else{
+                        out.println(raspuns);
+                        out.flush();
+                    }
+
                 }
                 else {
                     raspuns = "Server received the request " + request + " but ?????";
