@@ -17,4 +17,12 @@ public class ProfessorRepository {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public static Professor findProfessor(Professor professor,EntityManagerFactory session){
+        EntityManager entityManager= session.createEntityManager();
+        entityManager.getTransaction().begin();
+        Professor foundProfessor=entityManager.find(Professor.class,professor.getUsername());
+        entityManager.getTransaction().commit();
+        return foundProfessor;
+    }
 }

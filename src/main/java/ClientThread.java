@@ -1,5 +1,7 @@
 
+import Entity.Professor;
 import Entity.Student;
+import Repository.ProfessorRepository;
 import Repository.StudentRepository;
 import com.google.gson.Gson;
 import com.jcraft.jsch.JSchException;
@@ -26,6 +28,7 @@ class ClientThread extends Thread {
     }
 
     public void run() {
+        Gson gson=new Gson();
         try {
             var instance= Manager.getInstance();
             while (true) {
@@ -47,25 +50,69 @@ class ClientThread extends Thread {
                 }
                 if (!logged) {
                     if (request.length() > 8 && request.startsWith("register")) {
-                      /* Create a student currently*/
                         raspuns = "Register received";
-                        //String name=request.substring(9);
-                        String studentJSON=request.substring(9);
-                        Gson g=new Gson();
-                        Student studentFromJSON=g.fromJson(studentJSON,Student.class);
-                        try{
-                           // StudentRepository.createStudent(new Student(name),instance);
-                            StudentRepository.createStudent(studentFromJSON,instance);
-                            raspuns+=" user created!";
-                        }catch(RollbackException e){
-                            raspuns += " but user is already in the DB";
-                        }finally{
+                        if(request.startsWith("register1")){
+                           /* Create a professor */
+                            String professorJSON=request.substring(10);
+                            Professor professorFromJSON=gson.fromJson(professorJSON, Professor.class);
+                            try{
+                                ProfessorRepository.createProfessor(professorFromJSON,instance);
+                                raspuns+=" professor created!";
+                            }catch(RollbackException e){
+                                raspuns+=" but professor is already in the DB";
+                            }finally{
+                                out.println(raspuns);
+                                out.flush();
+                            }
+                        }else if(request.startsWith("register2")){
+                            /* Create a student*/
+                            String studentJSON=request.substring(10);
+                            Student studentFromJSON=gson.fromJson(studentJSON,Student.class);
+                            try{
+                                StudentRepository.createStudent(studentFromJSON,instance);
+                                raspuns+=" student created!";
+                            }catch(RollbackException e){
+                                raspuns += " but student is already in the DB";
+                            }finally{
+                                out.println(raspuns);
+                                out.flush();
+                            }
+                        }else{
+                            raspuns+=" but it is not a professor or student!";
                             out.println(raspuns);
                             out.flush();
                         }
 
+                    }
+                    else if (request.length() > 5 && request.startsWith("login")) {
+                        raspuns="Login received ";
+                        if(request.startsWith("login1")){
+                            /* Login as professor */
+                            String professorJSON=request.substring(7);
+                            Professor professorFromJSON=gson.fromJson(professorJSON,Professor.class);
+                            var found=ProfessorRepository.findProfessor(professorFromJSON,instance);
+                            if(found==null){
+                                raspuns+="professor does not exist!";
+                            }else{
+                                raspuns+=" professor logged in!";
+                            }
+                            out.println(raspuns);
+                            out.flush();
 
-                    } else if (request.length() > 5 && request.startsWith("login")) {
+
+                        }else if(request.startsWith("login2")){
+                            String studentJSON=request.substring(7);
+                            Student studentFromJSON=gson.fromJson(studentJSON,Student.class);
+                            var found=StudentRepository.findStudent(studentFromJSON,instance);
+                            if(found==null){
+                                raspuns+="student does not exist!";
+                            }else{
+                                raspuns+=" student logged in!";
+                            }
+                            out.println(raspuns);
+                            out.flush();
+                        }
+
 
                     } else {
                         raspuns = "Server received the request \"" + request + "\", but you are not logged in ";
