@@ -7,6 +7,13 @@ import javax.persistence.*;
 public class StudentsEntity {
     private String username;
 
+    public StudentsEntity(){
+    }
+
+    public StudentsEntity(String name) {
+        this.username=name;
+    }
+
     @Id
     @Column(name = "USERNAME")
     public String getUsername() {
