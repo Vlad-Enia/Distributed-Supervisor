@@ -1,17 +1,18 @@
-import Entity.Grade;
-import Entity.Group;
-import Entity.GroupTask;
-import Entity.Professor;
-import Repository.GradeRepository;
-import Repository.GroupRepository;
-import Repository.GroupTaskRepository;
-import Repository.ProfessorRepository;
+import Entity.*;
+import Repository.*;
+
+import javax.persistence.RollbackException;
 
 public class Main {
     public static void main(String[] args) {
         var instance= Manager.getInstance();
         System.out.println("Mai dormi afara?\nda");
-        //StudentRepository.createStudent(new StudentsEntity("Robert"),instance);
+        try{
+            StudentRepository.createStudent(new Student("Robert"),instance);
+        }
+        catch(RollbackException e){
+            System.out.println(e);
+        }
         //TaskRepository.createTask(new TasksEntity("Proiect la Java"),instance);
         //GroupRepository.createGroup(new Group("E4"),instance);
         //ProfessorRepository.createProfessor(new Professor("Ciobaca"),instance);
