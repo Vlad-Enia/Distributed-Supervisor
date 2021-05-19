@@ -9,7 +9,7 @@ public class Grade {
     private String task;
     private String student;
     private Double grade;
-
+    /*  Test la Java漢Robert漢8.25  */
     public Grade() {
     }
 

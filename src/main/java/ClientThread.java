@@ -1,6 +1,7 @@
 
 import Entity.Student;
 import Repository.StudentRepository;
+import com.google.gson.Gson;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 
@@ -48,9 +49,13 @@ class ClientThread extends Thread {
                     if (request.length() > 8 && request.startsWith("register")) {
                       /* Create a student currently*/
                         raspuns = "Register received";
-                        String name=request.substring(9);
+                        //String name=request.substring(9);
+                        String studentJSON=request.substring(9);
+                        Gson g=new Gson();
+                        Student studentFromJSON=g.fromJson(studentJSON,Student.class);
                         try{
-                            StudentRepository.createStudent(new Student(name),instance);
+                           // StudentRepository.createStudent(new Student(name),instance);
+                            StudentRepository.createStudent(studentFromJSON,instance);
                             raspuns+=" user created!";
                         }catch(RollbackException e){
                             raspuns += " but user is already in the DB";

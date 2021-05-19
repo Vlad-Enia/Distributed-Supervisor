@@ -1,5 +1,6 @@
 import Entity.*;
 import Repository.*;
+import com.google.gson.Gson;
 
 import javax.persistence.RollbackException;
 
@@ -13,6 +14,13 @@ public class Main {
         catch(RollbackException e){
             System.out.println(e);
         }
+        String json="{\"username\":\"DanChisu\"}";
+        Gson g = new Gson();
+
+        Student s=g.fromJson(json,Student.class);
+
+        System.out.println(s);
+
         //TaskRepository.createTask(new TasksEntity("Proiect la Java"),instance);
         //GroupRepository.createGroup(new Group("E4"),instance);
         //ProfessorRepository.createProfessor(new Professor("Ciobaca"),instance);
