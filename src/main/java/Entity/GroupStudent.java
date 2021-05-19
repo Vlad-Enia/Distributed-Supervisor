@@ -10,6 +10,13 @@ public class GroupStudent {
     private String groupname;
     private String student;
 
+    public GroupStudent(String groupname, String student) {
+        this.groupname = groupname;
+        this.student = student;
+    }
+
+    public GroupStudent() {
+    }
 
     @Id
     @Column(name = "GROUPNAME")

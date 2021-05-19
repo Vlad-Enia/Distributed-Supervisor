@@ -11,6 +11,14 @@ public class GroupProfessor {
     private String professor;
 
 
+    public GroupProfessor(String groupname, String professor) {
+        this.groupname = groupname;
+        this.professor = professor;
+    }
+
+    public GroupProfessor() {
+    }
+
     @Id
     @Column(name = "GROUPNAME")
     public String getGroupname() {
