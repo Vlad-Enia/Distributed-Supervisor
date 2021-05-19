@@ -1,12 +1,6 @@
 
-import Entity.Group;
-import Entity.Professor;
-import Entity.Student;
-import Entity.Task;
-import Repository.GroupRepository;
-import Repository.ProfessorRepository;
-import Repository.StudentRepository;
-import Repository.TaskRepository;
+import Entity.*;
+import Repository.*;
 import com.google.gson.Gson;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
@@ -123,6 +117,28 @@ class ClientThread extends Thread {
 
                     } else {
                         raspuns = "Server received the request \"" + request + "\", but you are not logged in ";
+                        out.println(raspuns);
+                        out.flush();
+                    }
+                }
+                else if(request.startsWith("group-task")){
+                    raspuns+="Group-Task received ";
+                    if(request.startsWith("group-task add")){
+                        raspuns+=" to be created, ";
+                        String groupTaskJson=request.substring(15);
+                        GroupTask groupTaskFromJSON=gson.fromJson(groupTaskJson,GroupTask.class);
+                        try{
+                            GroupTaskRepository.createGroupTask(groupTaskFromJSON,instance);
+                            raspuns+="group-task created!";
+                        }catch (RollbackException e){
+                            System.out.println(e.getMessage());
+                            /* Aici ar trebui tratate separat da trebuie facut un avion de filtru pe foreign key si mi-e cam lene */
+                            raspuns+="but group-task is already in the DB, group doesn't exist OR task doesn't exist in the DB";
+                        }finally{
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }else{
                         out.println(raspuns);
                         out.flush();
                     }

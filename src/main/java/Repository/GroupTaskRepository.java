@@ -2,6 +2,7 @@ package Repository;
 
 
 import Entity.GroupTask;
+import Entity.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,4 +15,5 @@ public class GroupTaskRepository {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
 }
