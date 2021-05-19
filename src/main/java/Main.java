@@ -1,8 +1,10 @@
 import Entity.Grade;
 import Entity.Group;
+import Entity.GroupTask;
 import Entity.Professor;
 import Repository.GradeRepository;
 import Repository.GroupRepository;
+import Repository.GroupTaskRepository;
 import Repository.ProfessorRepository;
 
 public class Main {
@@ -14,5 +16,7 @@ public class Main {
         //GroupRepository.createGroup(new Group("E4"),instance);
         //ProfessorRepository.createProfessor(new Professor("Ciobaca"),instance);
         //GradeRepository.createGrade(new Grade("Proiect la Java","Robert",9.5),instance);
+        //GroupTaskRepository.createGroupTask(new GroupTask("E4","Proiect la Java"),instance);
+
     }
 }
