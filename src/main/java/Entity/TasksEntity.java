@@ -7,6 +7,12 @@ import javax.persistence.*;
 public class TasksEntity {
     private String name;
 
+    public TasksEntity() {
+    }
+
+    public TasksEntity(String name) {
+        this.name = name;
+    }
 
     @Id
     @Column(name = "NAME")
