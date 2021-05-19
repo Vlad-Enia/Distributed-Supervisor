@@ -9,6 +9,13 @@ public class GroupTask {
     private String groupname;
     private String task;
 
+    public GroupTask() {
+    }
+
+    public GroupTask(String groupname, String task) {
+        this.groupname = groupname;
+        this.task = task;
+    }
 
     @Id
     @Column(name = "GROUPNAME")

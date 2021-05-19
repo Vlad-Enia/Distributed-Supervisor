@@ -7,7 +7,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="alo" />
-          <factory-entry name="default" value="190551fd-4981-4248-be31-7c9b2eb8c202" />
+          <factory-entry name="default" value="547ac97f-789d-4826-b684-72edb22d4960" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
