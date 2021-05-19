@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-public class GroupsStudentsEntityPK implements Serializable {
+public class GroupTaskPK implements Serializable {
     private String groupname;
-    private String student;
+    private String task;
 
     @Column(name = "GROUPNAME")
     @Id
@@ -18,14 +18,14 @@ public class GroupsStudentsEntityPK implements Serializable {
         this.groupname = groupname;
     }
 
-    @Column(name = "STUDENT")
+    @Column(name = "TASK")
     @Id
-    public String getStudent() {
-        return student;
+    public String getTask() {
+        return task;
     }
 
-    public void setStudent(String student) {
-        this.student = student;
+    public void setTask(String task) {
+        this.task = task;
     }
 
     @Override
@@ -33,10 +33,10 @@ public class GroupsStudentsEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupsStudentsEntityPK that = (GroupsStudentsEntityPK) o;
+        GroupTaskPK that = (GroupTaskPK) o;
 
         if (groupname != null ? !groupname.equals(that.groupname) : that.groupname != null) return false;
-        if (student != null ? !student.equals(that.student) : that.student != null) return false;
+        if (task != null ? !task.equals(that.task) : that.task != null) return false;
 
         return true;
     }
@@ -44,7 +44,7 @@ public class GroupsStudentsEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = groupname != null ? groupname.hashCode() : 0;
-        result = 31 * result + (student != null ? student.hashCode() : 0);
+        result = 31 * result + (task != null ? task.hashCode() : 0);
         return result;
     }
 }

@@ -5,14 +5,14 @@
              version="2.2">
     <persistence-unit name="alo">
 
-        <class>Entity.GradesEntity</class>
-        <class>Entity.GroupsEntity</class>
-        <class>Entity.GroupsProfessorsEntity</class>
-        <class>Entity.GroupsStudentsEntity</class>
-        <class>Entity.GroupsTasksEntity</class>
-        <class>Entity.ProfessorsEntity</class>
-        <class>Entity.StudentsEntity</class>
-        <class>Entity.TasksEntity</class>
+        <class>Entity.Grade</class>
+        <class>Entity.Group</class>
+        <class>Entity.GroupProfessor</class>
+        <class>Entity.GroupStudent</class>
+        <class>Entity.GroupTask</class>
+        <class>Entity.Professor</class>
+        <class>Entity.Student</class>
+        <class>Entity.Task</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
             <property name="hibernate.connection.user" value="student"/>

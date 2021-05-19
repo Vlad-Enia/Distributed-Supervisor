@@ -3,12 +3,12 @@ package Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "DS_GROUPS_PROFESSORS", schema = "STUDENT")
-@IdClass(GroupsProfessorsEntityPK.class)
-public class GroupsProfessorsEntity {
+@Table(name = "DS_GROUPS_STUDENTS", schema = "STUDENT")
+@IdClass(GroupStudentPK.class)
+public class GroupStudent {
 
     private String groupname;
-    private String professor;
+    private String student;
 
 
     @Id
@@ -22,13 +22,13 @@ public class GroupsProfessorsEntity {
     }
 
     @Id
-    @Column(name = "PROFESSOR")
-    public String getProfessor() {
-        return professor;
+    @Column(name = "STUDENT")
+    public String getStudent() {
+        return student;
     }
 
-    public void setProfessor(String professor) {
-        this.professor = professor;
+    public void setStudent(String student) {
+        this.student = student;
     }
 
     @Override
@@ -36,10 +36,10 @@ public class GroupsProfessorsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupsProfessorsEntity that = (GroupsProfessorsEntity) o;
+        GroupStudent that = (GroupStudent) o;
 
         if (groupname != null ? !groupname.equals(that.groupname) : that.groupname != null) return false;
-        if (professor != null ? !professor.equals(that.professor) : that.professor != null) return false;
+        if (student != null ? !student.equals(that.student) : that.student != null) return false;
 
         return true;
     }
@@ -47,7 +47,7 @@ public class GroupsProfessorsEntity {
     @Override
     public int hashCode() {
         int result = groupname != null ? groupname.hashCode() : 0;
-        result = 31 * result + (professor != null ? professor.hashCode() : 0);
+        result = 31 * result + (student != null ? student.hashCode() : 0);
         return result;
     }
 }

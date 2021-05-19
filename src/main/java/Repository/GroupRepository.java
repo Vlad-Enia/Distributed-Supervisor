@@ -1,7 +1,6 @@
 package Repository;
 
-import Entity.GroupsEntity;
-import Entity.StudentsEntity;
+import Entity.Group;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,7 +10,7 @@ public class GroupRepository {
     public GroupRepository() {
     }
 
-    public static void createGroup(GroupsEntity group, EntityManagerFactory session){
+    public static void createGroup(Group group, EntityManagerFactory session){
         EntityManager entityManager=session.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(group);

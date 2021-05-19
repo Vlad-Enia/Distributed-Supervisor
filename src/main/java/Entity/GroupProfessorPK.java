@@ -1,17 +1,15 @@
 package Entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
-@Entity
-@Table(name = "DS_GROUPS_TASKS", schema = "STUDENT")
-@IdClass(GroupsTasksEntityPK.class)
-public class GroupsTasksEntity {
+public class GroupProfessorPK implements Serializable {
     private String groupname;
-    private String task;
+    private String professor;
 
-
-    @Id
     @Column(name = "GROUPNAME")
+    @Id
     public String getGroupname() {
         return groupname;
     }
@@ -20,14 +18,14 @@ public class GroupsTasksEntity {
         this.groupname = groupname;
     }
 
+    @Column(name = "PROFESSOR")
     @Id
-    @Column(name = "TASK")
-    public String getTask() {
-        return task;
+    public String getProfessor() {
+        return professor;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
     @Override
@@ -35,10 +33,10 @@ public class GroupsTasksEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupsTasksEntity that = (GroupsTasksEntity) o;
+        GroupProfessorPK that = (GroupProfessorPK) o;
 
         if (groupname != null ? !groupname.equals(that.groupname) : that.groupname != null) return false;
-        if (task != null ? !task.equals(that.task) : that.task != null) return false;
+        if (professor != null ? !professor.equals(that.professor) : that.professor != null) return false;
 
         return true;
     }
@@ -46,7 +44,7 @@ public class GroupsTasksEntity {
     @Override
     public int hashCode() {
         int result = groupname != null ? groupname.hashCode() : 0;
-        result = 31 * result + (task != null ? task.hashCode() : 0);
+        result = 31 * result + (professor != null ? professor.hashCode() : 0);
         return result;
     }
 }

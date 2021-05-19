@@ -4,13 +4,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "DS_STUDENTS", schema = "STUDENT")
-public class StudentsEntity {
+public class Student {
     private String username;
 
-    public StudentsEntity(){
+    public Student(){
     }
 
-    public StudentsEntity(String name) {
+    public Student(String name) {
         this.username=name;
     }
 
@@ -29,7 +29,7 @@ public class StudentsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StudentsEntity that = (StudentsEntity) o;
+        Student that = (Student) o;
 
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
 

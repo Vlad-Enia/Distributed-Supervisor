@@ -1,15 +1,17 @@
 package Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class GradesEntityPK implements Serializable {
+@Entity
+@Table(name = "DS_GRADES", schema = "STUDENT")
+@IdClass(GradePK.class)
+public class Grade {
     private String task;
     private String student;
+    private Long grade;
 
-    @Column(name = "TASK")
     @Id
+    @Column(name = "TASK")
     public String getTask() {
         return task;
     }
@@ -18,8 +20,8 @@ public class GradesEntityPK implements Serializable {
         this.task = task;
     }
 
-    @Column(name = "STUDENT")
     @Id
+    @Column(name = "STUDENT")
     public String getStudent() {
         return student;
     }
@@ -28,15 +30,26 @@ public class GradesEntityPK implements Serializable {
         this.student = student;
     }
 
+    @Basic
+    @Column(name = "GRADE")
+    public Long getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Long grade) {
+        this.grade = grade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GradesEntityPK that = (GradesEntityPK) o;
+        Grade that = (Grade) o;
 
         if (task != null ? !task.equals(that.task) : that.task != null) return false;
         if (student != null ? !student.equals(that.student) : that.student != null) return false;
+        if (grade != null ? !grade.equals(that.grade) : that.grade != null) return false;
 
         return true;
     }
@@ -45,6 +58,7 @@ public class GradesEntityPK implements Serializable {
     public int hashCode() {
         int result = task != null ? task.hashCode() : 0;
         result = 31 * result + (student != null ? student.hashCode() : 0);
+        result = 31 * result + (grade != null ? grade.hashCode() : 0);
         return result;
     }
 }

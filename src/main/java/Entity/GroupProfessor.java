@@ -1,15 +1,18 @@
 package Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class GroupsTasksEntityPK implements Serializable {
+@Entity
+@Table(name = "DS_GROUPS_PROFESSORS", schema = "STUDENT")
+@IdClass(GroupProfessorPK.class)
+public class GroupProfessor {
+
     private String groupname;
-    private String task;
+    private String professor;
 
-    @Column(name = "GROUPNAME")
+
     @Id
+    @Column(name = "GROUPNAME")
     public String getGroupname() {
         return groupname;
     }
@@ -18,14 +21,14 @@ public class GroupsTasksEntityPK implements Serializable {
         this.groupname = groupname;
     }
 
-    @Column(name = "TASK")
     @Id
-    public String getTask() {
-        return task;
+    @Column(name = "PROFESSOR")
+    public String getProfessor() {
+        return professor;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
     @Override
@@ -33,10 +36,10 @@ public class GroupsTasksEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupsTasksEntityPK that = (GroupsTasksEntityPK) o;
+        GroupProfessor that = (GroupProfessor) o;
 
         if (groupname != null ? !groupname.equals(that.groupname) : that.groupname != null) return false;
-        if (task != null ? !task.equals(that.task) : that.task != null) return false;
+        if (professor != null ? !professor.equals(that.professor) : that.professor != null) return false;
 
         return true;
     }
@@ -44,7 +47,7 @@ public class GroupsTasksEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = groupname != null ? groupname.hashCode() : 0;
-        result = 31 * result + (task != null ? task.hashCode() : 0);
+        result = 31 * result + (professor != null ? professor.hashCode() : 0);
         return result;
     }
 }

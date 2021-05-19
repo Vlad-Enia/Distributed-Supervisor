@@ -1,28 +1,25 @@
 package Entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
-@Entity
-@Table(name = "DS_GROUPS_STUDENTS", schema = "STUDENT")
-@IdClass(GroupsStudentsEntityPK.class)
-public class GroupsStudentsEntity {
-
-    private String groupname;
+public class GradePK implements Serializable {
+    private String task;
     private String student;
 
-
+    @Column(name = "TASK")
     @Id
-    @Column(name = "GROUPNAME")
-    public String getGroupname() {
-        return groupname;
+    public String getTask() {
+        return task;
     }
 
-    public void setGroupname(String groupname) {
-        this.groupname = groupname;
+    public void setTask(String task) {
+        this.task = task;
     }
 
-    @Id
     @Column(name = "STUDENT")
+    @Id
     public String getStudent() {
         return student;
     }
@@ -36,9 +33,9 @@ public class GroupsStudentsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupsStudentsEntity that = (GroupsStudentsEntity) o;
+        GradePK that = (GradePK) o;
 
-        if (groupname != null ? !groupname.equals(that.groupname) : that.groupname != null) return false;
+        if (task != null ? !task.equals(that.task) : that.task != null) return false;
         if (student != null ? !student.equals(that.student) : that.student != null) return false;
 
         return true;
@@ -46,7 +43,7 @@ public class GroupsStudentsEntity {
 
     @Override
     public int hashCode() {
-        int result = groupname != null ? groupname.hashCode() : 0;
+        int result = task != null ? task.hashCode() : 0;
         result = 31 * result + (student != null ? student.hashCode() : 0);
         return result;
     }

@@ -4,13 +4,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "DS_TASKS", schema = "STUDENT")
-public class TasksEntity {
+public class Task {
     private String name;
 
-    public TasksEntity() {
+    public Task() {
     }
 
-    public TasksEntity(String name) {
+    public Task(String name) {
         this.name = name;
     }
 
@@ -29,7 +29,7 @@ public class TasksEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TasksEntity that = (TasksEntity) o;
+        Task that = (Task) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 

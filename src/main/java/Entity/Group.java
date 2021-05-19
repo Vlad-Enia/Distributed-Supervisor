@@ -4,11 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "DS_GROUPS", schema = "STUDENT")
-public class GroupsEntity {
+public class Group {
 
     private String name;
 
+    public Group() {
+    }
 
+    public Group(String name) {
+        this.name = name;
+    }
 
     @Id
     @Column(name = "NAME")
@@ -25,7 +30,7 @@ public class GroupsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GroupsEntity that = (GroupsEntity) o;
+        Group that = (Group) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
