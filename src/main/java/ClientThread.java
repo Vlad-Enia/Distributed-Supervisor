@@ -1,7 +1,9 @@
 
+import Entity.Group;
 import Entity.Professor;
 import Entity.Student;
 import Entity.Task;
+import Repository.GroupRepository;
 import Repository.ProfessorRepository;
 import Repository.StudentRepository;
 import Repository.TaskRepository;
@@ -141,11 +143,30 @@ class ClientThread extends Thread {
                             out.flush();
                         }
 
+                    } else{
+                        out.println(raspuns);
+                        out.flush();
+                    }
+                }
+                else if(request.startsWith("group")){
+                    raspuns+="Group received ";
+                    if(request.startsWith("group add")){
+                        raspuns+=" to be created, ";
+                        String groupJson=request.substring(10);
+                        Group groupFromJSON=gson.fromJson(groupJson,Group.class);
+                        try{
+                            GroupRepository.createGroup(groupFromJSON,instance);
+                            raspuns+=" group created!";
+                        }catch(RollbackException e){
+                            raspuns+=" but the group is already in the DB";
+                        }finally{
+                            out.println(raspuns);
+                            out.flush();
+                        }
                     }else{
                         out.println(raspuns);
                         out.flush();
                     }
-
                 }
                 else {
                     raspuns = "Server received the request " + request + " but ?????";
