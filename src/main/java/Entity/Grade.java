@@ -8,7 +8,16 @@ import javax.persistence.*;
 public class Grade {
     private String task;
     private String student;
-    private Long grade;
+    private Double grade;
+
+    public Grade() {
+    }
+
+    public Grade(String task, String student, Double grade) {
+        this.task = task;
+        this.student = student;
+        this.grade = grade;
+    }
 
     @Id
     @Column(name = "TASK")
@@ -32,11 +41,11 @@ public class Grade {
 
     @Basic
     @Column(name = "GRADE")
-    public Long getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(Long grade) {
+    public void setGrade(Double grade) {
         this.grade = grade;
     }
 
