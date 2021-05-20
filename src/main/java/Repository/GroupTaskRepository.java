@@ -3,7 +3,6 @@ package Repository;
 
 import Entity.GroupTask;
 import Entity.GroupTaskPK;
-import Entity.Student;
 import Exceptions.DuplicatedObjectException;
 import Exceptions.ParentKeyException;
 
@@ -25,7 +24,6 @@ public class GroupTaskRepository {
             catch(RollbackException e){
                 throw new ParentKeyException(GroupTask.class.getName());
             }
-            //return "OK";
         }
         else throw new DuplicatedObjectException(GroupTask.class.getName());
     }

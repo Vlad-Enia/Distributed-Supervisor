@@ -10,13 +10,12 @@ public class GroupProfessor {
     private String groupname;
     private String professor;
 
+    public GroupProfessor() {
+    }
 
     public GroupProfessor(String groupname, String professor) {
         this.groupname = groupname;
         this.professor = professor;
-    }
-
-    public GroupProfessor() {
     }
 
     @Id

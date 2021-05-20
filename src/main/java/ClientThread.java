@@ -1,5 +1,6 @@
 
 import Entity.*;
+import Entity.GroupProfessor;
 import Exceptions.DuplicatedObjectException;
 import Exceptions.ParentKeyException;
 import Repository.*;
@@ -123,10 +124,31 @@ class ClientThread extends Thread {
                         out.flush();
                     }
                 }
+                else if(request.startsWith("group-professor")){
+                    raspuns+="Group-Professor received ";
+                    if(request.startsWith("group-professor add")){
+                        raspuns+="to be created, ";
+                        String groupProfessorJson=request.substring(20);
+                        GroupProfessor groupProfessorFromJSOM=gson.fromJson(groupProfessorJson, GroupProfessor.class);
+                        try{
+                            GroupProfessorRepository.createGroupProfessor(groupProfessorFromJSOM,instance);
+                            raspuns+="group-professor created!";
+                        }catch(ParentKeyException| DuplicatedObjectException e){
+                            raspuns+=e;
+                        }finally
+                        {
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }else{
+                        out.println(raspuns);
+                        out.flush();
+                    }
+                }
                 else if(request.startsWith("group-task")){
                     raspuns+="Group-Task received ";
                     if(request.startsWith("group-task add")){
-                        raspuns+=" to be created, ";
+                        raspuns+="to be created, ";
                         String groupTaskJson=request.substring(15);
                         GroupTask groupTaskFromJSON=gson.fromJson(groupTaskJson,GroupTask.class);
                         try{
