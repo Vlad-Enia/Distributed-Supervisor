@@ -8,6 +8,14 @@ public class GroupTaskPK implements Serializable {
     private String groupname;
     private String task;
 
+    public GroupTaskPK() {
+    }
+
+    public GroupTaskPK(String groupname, String task) {
+        this.groupname = groupname;
+        this.task = task;
+    }
+
     @Column(name = "GROUPNAME")
     @Id
     public String getGroupname() {

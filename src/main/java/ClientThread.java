@@ -1,5 +1,7 @@
 
 import Entity.*;
+import Exceptions.DuplicatedObjectException;
+import Exceptions.ParentKeyException;
 import Repository.*;
 import com.google.gson.Gson;
 import com.jcraft.jsch.JSchException;
@@ -129,12 +131,11 @@ class ClientThread extends Thread {
                         GroupTask groupTaskFromJSON=gson.fromJson(groupTaskJson,GroupTask.class);
                         try{
                             GroupTaskRepository.createGroupTask(groupTaskFromJSON,instance);
-                            raspuns+="group-task created!";
-                        }catch (RollbackException e){
-                            System.out.println(e.getMessage());
-                            /* Aici ar trebui tratate separat da trebuie facut un avion de filtru pe foreign key si mi-e cam lene */
-                            raspuns+="but group-task is already in the DB, group doesn't exist OR task doesn't exist in the DB";
-                        }finally{
+                            raspuns += "group-task created!";
+                        }catch(ParentKeyException| DuplicatedObjectException e) {
+                            raspuns+=e;
+                        }finally
+                        {
                             out.println(raspuns);
                             out.flush();
                         }
