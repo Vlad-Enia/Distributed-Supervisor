@@ -8,6 +8,14 @@ public class GroupStudentPK implements Serializable {
     private String groupname;
     private String student;
 
+    public GroupStudentPK() {
+    }
+
+    public GroupStudentPK(String groupname, String student) {
+        this.groupname = groupname;
+        this.student = student;
+    }
+
     @Column(name = "GROUPNAME")
     @Id
     public String getGroupname() {

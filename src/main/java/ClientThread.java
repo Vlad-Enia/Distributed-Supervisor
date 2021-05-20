@@ -145,6 +145,27 @@ class ClientThread extends Thread {
                         out.flush();
                     }
                 }
+                else if(request.startsWith("group-student")){
+                    raspuns+="Group-Student received ";
+                    if(request.startsWith("group-student add")){
+                        raspuns+="to be created, ";
+                        String groupStudentJson=request.substring(18);
+                        GroupStudent groupStudentFromJSON=gson.fromJson(groupStudentJson, GroupStudent.class);
+                        try{
+                            GroupStudentRepository.createGroupStudent(groupStudentFromJSON,instance);
+                            raspuns+="group-student created!";
+                        }catch(ParentKeyException| DuplicatedObjectException e){
+                            raspuns+=e;
+                        }finally
+                        {
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }else{
+                        out.println(raspuns);
+                        out.flush();
+                    }
+                }
                 else if(request.startsWith("group-task")){
                     raspuns+="Group-Task received ";
                     if(request.startsWith("group-task add")){
