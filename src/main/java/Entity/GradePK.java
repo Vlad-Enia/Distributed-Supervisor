@@ -8,6 +8,14 @@ public class GradePK implements Serializable {
     private String task;
     private String student;
 
+    public GradePK() {
+    }
+
+    public GradePK(String task, String student) {
+        this.task = task;
+        this.student = student;
+    }
+
     @Column(name = "TASK")
     @Id
     public String getTask() {

@@ -124,6 +124,27 @@ class ClientThread extends Thread {
                         out.flush();
                     }
                 }
+                else if(request.startsWith("grade")){
+                    raspuns+="Grade received ";
+                    if(request.startsWith("grade add")){
+                        raspuns+="to be created, ";
+                        String gradeJSON=request.substring(10);
+                        Grade gradeFromJSON=gson.fromJson(gradeJSON,Grade.class);
+                        try{
+                            GradeRepository.createGrade(gradeFromJSON,instance);
+                            raspuns+="grade created!";
+                        }catch(ParentKeyException| DuplicatedObjectException e){
+                            raspuns+=e;
+                        }finally
+                        {
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }else{
+                        out.println(raspuns);
+                        out.flush();
+                    }
+                }
                 else if(request.startsWith("group-professor")){
                     raspuns+="Group-Professor received ";
                     if(request.startsWith("group-professor add")){

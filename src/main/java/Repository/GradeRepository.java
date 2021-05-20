@@ -1,19 +1,41 @@
 package Repository;
 
 import Entity.Grade;
+import Entity.GradePK;
+import Entity.GroupProfessor;
+import Exceptions.DuplicatedObjectException;
+import Exceptions.ParentKeyException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 
 public class GradeRepository {
     public GradeRepository(){
     }
 
     public static void createGrade(Grade grade, EntityManagerFactory session){
-        EntityManager entityManager= session.createEntityManager();
+        var found=GradeRepository.findGrade(new GradePK(grade.getTask(),grade.getStudent()),session);
+        if(found==null){
+            try{
+                EntityManager entityManager= session.createEntityManager();
+                entityManager.getTransaction().begin();
+                entityManager.persist(grade);
+                entityManager.getTransaction().commit();
+                entityManager.close();
+            }
+            catch (RollbackException e){
+                throw new ParentKeyException(Grade.class.getName());
+            }
+        }
+        else throw  new DuplicatedObjectException(Grade.class.getName());
+    }
+
+    public static Grade findGrade(GradePK pk,EntityManagerFactory session){
+        EntityManager entityManager=session.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(grade);
+        Grade foundGrade=entityManager.find(Grade.class,pk);
         entityManager.getTransaction().commit();
-        entityManager.close();
+        return foundGrade;
     }
 }
