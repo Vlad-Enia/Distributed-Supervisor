@@ -1,14 +1,14 @@
 package Repository;
 
-import Entity.GroupProfessor;
-import Entity.GroupStudent;
-import Entity.GroupStudentPK;
+import Entity.*;
 import Exceptions.DuplicatedObjectException;
 import Exceptions.ParentKeyException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.RollbackException;
+import java.util.List;
 
 public class GroupStudentRepository {
 
@@ -38,5 +38,15 @@ public class GroupStudentRepository {
         GroupStudent foundGroupStudent=entityManager.find(GroupStudent.class,pk);
         entityManager.getTransaction().commit();
         return foundGroupStudent;
+    }
+
+    public static List<Student> findAllStudents(Group group, EntityManagerFactory session){
+        EntityManager entityManager= session.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query q=entityManager.createNamedQuery("GroupStudent.findByGroup").setParameter("gr",group.getName());
+        entityManager.getTransaction().commit();
+        List<Student> foundStudents=q.getResultList();
+        entityManager.close();
+        return foundStudents;
     }
 }

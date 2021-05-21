@@ -117,7 +117,6 @@ class ClientThread extends Thread {
                             out.flush();
                         }
 
-
                     } else {
                         raspuns = "Server received the request \"" + request + "\", but you are not logged in ";
                         out.println(raspuns);
@@ -182,7 +181,21 @@ class ClientThread extends Thread {
                             out.println(raspuns);
                             out.flush();
                         }
-                    }else{
+                    }
+                    else if(request.startsWith("group-student get")){
+                        raspuns+="to be returned, ";
+                        if(request.startsWith("group-student get all")){
+                            raspuns+="all students ";
+                            String groupJson=request.substring(22);
+                            Group groupFromJSON=gson.fromJson(groupJson,Group.class);
+                            var foundStudents=GroupStudentRepository.findAllStudents(groupFromJSON,instance);
+                            String studentList=gson.toJson(foundStudents);
+                            raspuns+=studentList;
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }
+                    else{
                         out.println(raspuns);
                         out.flush();
                     }
@@ -200,6 +213,18 @@ class ClientThread extends Thread {
                             raspuns+=e;
                         }finally
                         {
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }else if(request.startsWith("group-task get")){
+                        raspuns+="to be returned, ";
+                        if(request.startsWith("group-task get all")) {
+                            raspuns+="all tasks ";
+                        String groupJson=request.substring(19);
+                        Group groupFromJSON=gson.fromJson(groupJson,Group.class);
+                            var foundTasks=GroupTaskRepository.findAllTasks(groupFromJSON,instance);
+                            String taskList= gson.toJson(foundTasks);
+                            raspuns+=taskList;
                             out.println(raspuns);
                             out.flush();
                         }

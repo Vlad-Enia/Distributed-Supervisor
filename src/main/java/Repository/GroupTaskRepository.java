@@ -1,14 +1,19 @@
 package Repository;
 
 
+import Entity.Group;
 import Entity.GroupTask;
 import Entity.GroupTaskPK;
+import Entity.Task;
 import Exceptions.DuplicatedObjectException;
 import Exceptions.ParentKeyException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.RollbackException;
+import java.lang.reflect.Array;
+import java.util.List;
 
 public class GroupTaskRepository {
     public static void createGroupTask(GroupTask groupTask, EntityManagerFactory session){
@@ -34,6 +39,16 @@ public class GroupTaskRepository {
         GroupTask foundGroupTask=entityManager.find(GroupTask.class,pk);
         entityManager.getTransaction().commit();
         return foundGroupTask;
+    }
+
+    public static List<Task> findAllTasks(Group group, EntityManagerFactory session){
+        EntityManager entityManager=session.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query q=entityManager.createNamedQuery("GroupTask.findByGroup").setParameter("gr",group.getName());
+        entityManager.getTransaction().commit();
+        List<Task> foundTasks=q.getResultList();
+        entityManager.close();
+        return foundTasks;
     }
 
 }

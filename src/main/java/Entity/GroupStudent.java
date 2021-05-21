@@ -3,6 +3,8 @@ package Entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="GroupStudent.findByGroup",
+            query="SELECT GroupStudent.student FROM GroupStudent GroupStudent WHERE GroupStudent.groupname LIKE :gr")
 @Table(name = "DS_GROUPS_STUDENTS", schema = "STUDENT")
 @IdClass(GroupStudentPK.class)
 public class GroupStudent {

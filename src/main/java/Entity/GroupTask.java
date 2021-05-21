@@ -3,6 +3,8 @@ package Entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="GroupTask.findByGroup",
+            query="SELECT GroupTask.task FROM GroupTask GroupTask WHERE GroupTask.groupname LIKE :gr")
 @Table(name = "DS_GROUPS_TASKS", schema = "STUDENT")
 @IdClass(GroupTaskPK.class)
 public class GroupTask {
