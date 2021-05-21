@@ -18,18 +18,10 @@ public class StudentRepository {
     }
 
     public static Student findStudent(Student student,EntityManagerFactory session){
-        try{
             EntityManager entityManager=session.createEntityManager();
             entityManager.getTransaction().begin();
             Student foundStudent=entityManager.find(Student.class,student.getUsername());
             entityManager.getTransaction().commit();
             return foundStudent;
-        }
-
-        catch(Exception e){
-            System.out.println(e);
-        }finally {
-            return null;
-        }
     }
 }
