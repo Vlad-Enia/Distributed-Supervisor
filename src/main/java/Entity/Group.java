@@ -3,6 +3,8 @@ package Entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="Group.findAllGroups",
+            query="SELECT Group FROM Group Group")
 @Table(name = "DS_GROUPS", schema = "STUDENT")
 public class Group {
 

@@ -65,6 +65,7 @@ class ClientThread extends Thread {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
                 String request = in.readLine();
+                System.out.println(request);
                 // Send the response to the oputput stream: server → client
                 PrintWriter out = new PrintWriter(socket.getOutputStream());
                 String raspuns = "";
@@ -312,6 +313,17 @@ class ClientThread extends Thread {
                         }catch(RollbackException e){
                             raspuns+=" but the group is already in the DB";
                         }finally{
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }
+                    else if(request.startsWith("group get")){
+                        raspuns+="to be returned, ";
+                        if(request.startsWith("group get all")){
+                            raspuns+="all groups";
+                            var foundGroups=GroupRepository.findAllGroups(instance);
+                            String groupList=gson.toJson(foundGroups);
+                            raspuns+=groupList;
                             out.println(raspuns);
                             out.flush();
                         }
