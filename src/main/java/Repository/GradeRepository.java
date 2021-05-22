@@ -2,13 +2,16 @@ package Repository;
 
 import Entity.Grade;
 import Entity.GradePK;
+import Entity.Group;
 import Entity.GroupProfessor;
 import Exceptions.DuplicatedObjectException;
 import Exceptions.ParentKeyException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.RollbackException;
+import java.util.List;
 
 public class GradeRepository {
     public GradeRepository(){
@@ -37,5 +40,15 @@ public class GradeRepository {
         Grade foundGrade=entityManager.find(Grade.class,pk);
         entityManager.getTransaction().commit();
         return foundGrade;
+    }
+
+    public static List<Grade> findAllGrades(Group group, EntityManagerFactory session){
+        EntityManager entityManager=session.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query q=entityManager.createNamedQuery("Grade.findByGroup").setParameter("gr",group.getName());
+        entityManager.getTransaction().commit();
+        List<Grade> foundGrades=q.getResultList();
+        entityManager.close();
+        return foundGrades;
     }
 }

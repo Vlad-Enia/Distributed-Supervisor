@@ -3,6 +3,8 @@ package Entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="Grade.findByGroup",
+            query="SELECT Grade FROM Grade Grade JOIN GroupStudent GroupStudent ON Grade.student=GroupStudent.student WHERE GroupStudent.groupname LIKE :gr ORDER BY Grade.task,Grade.student")
 @Table(name = "DS_GRADES", schema = "STUDENT")
 @IdClass(GradePK.class)
 public class Grade {

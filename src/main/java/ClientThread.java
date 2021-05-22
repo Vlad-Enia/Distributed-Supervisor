@@ -15,6 +15,8 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 class ClientThread extends Thread {
     private static Integer TIMEOUT_TIME=3600_000; // change with a smaller number to see the results
@@ -26,6 +28,32 @@ class ClientThread extends Thread {
     public ClientThread(Socket socket) throws SQLException, SocketException {
         this.socket = socket;
         socket.setSoTimeout(TIMEOUT_TIME); /// sec*1000
+    }
+
+    List<GradeCustomObject> createCustomGradeObject(List<Grade> grades){
+        List<GradeCustomObject> ans=new ArrayList<>();
+        if(!grades.isEmpty()){
+            GradeCustomObject obj=new GradeCustomObject();
+            obj.task=grades.get(0).getTask();
+            int i=0;
+            for(var grade:grades){
+                if(grade.getTask().equals(obj.task)){
+                    obj.student.add(grade.getStudent());
+                    obj.grade.add(grade.getGrade());
+                }else{
+                    ans.add(obj);
+                    obj=new GradeCustomObject();
+                    obj.task=grade.getTask();
+                    obj.student.add(grade.getStudent());
+                    obj.grade.add(grade.getGrade());
+                }
+                ++i;
+            }
+            ans.add(obj);
+            return ans;
+        }else{
+            return null;
+        }
     }
 
     public void run() {
@@ -136,6 +164,24 @@ class ClientThread extends Thread {
                             raspuns+=e;
                         }finally
                         {
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }
+                    else if(request.startsWith("grade get")){
+                        raspuns+="to be returned, ";
+                        if(request.startsWith("grade get all")){
+                            raspuns+="all grades";
+                            String groupJson=request.substring(14);
+                            Group groupFromJson=gson.fromJson(groupJson,Group.class);
+                            var foundGrades=GradeRepository.findAllGrades(groupFromJson,instance);
+
+                            var customGrade=createCustomGradeObject(foundGrades);
+
+                            String gradeList=gson.toJson(foundGrades);/* ans is an array of grades (lazy method) */
+                            String customGradeList=gson.toJson(customGrade); /* Check GradeCustomObject to see the format of this response */
+                            raspuns+=gradeList;
+                            raspuns+=" "+customGradeList;
                             out.println(raspuns);
                             out.flush();
                         }
