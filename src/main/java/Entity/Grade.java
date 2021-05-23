@@ -5,6 +5,8 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Grade.findByGroup",
             query="SELECT Grade FROM Grade Grade JOIN GroupStudent GroupStudent ON Grade.student=GroupStudent.student WHERE GroupStudent.groupname LIKE :gr ORDER BY Grade.task,Grade.student")
+@NamedQuery(name="Grade.UpdateValue",
+            query="UPDATE Grade Grade SET Grade.grade=:value WHERE Grade.student=:student AND Grade.task=:task")
 @Table(name = "DS_GRADES", schema = "STUDENT")
 @IdClass(GradePK.class)
 public class Grade {

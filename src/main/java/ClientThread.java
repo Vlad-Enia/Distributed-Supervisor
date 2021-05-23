@@ -186,6 +186,21 @@ class ClientThread extends Thread {
                             out.println(raspuns);
                             out.flush();
                         }
+                    }
+                    else if(request.startsWith("grade update")){
+                        raspuns+="to be updated, ";
+                        String gradeJSON=request.substring(13);
+                        Grade gradeFromJSON=gson.fromJson(gradeJSON,Grade.class);
+                        try{
+                            GradeRepository.updateGrade(gradeFromJSON,instance);
+                            raspuns+="grade updated!";
+                        }catch(ParentKeyException| DuplicatedObjectException e){
+                            raspuns+=e;
+                        }finally
+                        {
+                            out.println(raspuns);
+                            out.flush();
+                        }
                     }else{
                         out.println(raspuns);
                         out.flush();
