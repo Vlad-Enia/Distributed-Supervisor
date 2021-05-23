@@ -78,44 +78,80 @@ class ClientThread extends Thread {
                     System.out.println("Client disconnected. Stopping thread...");
                     return;
                 }
-                if (!logged) {
-                    if (request.length() > 8 && request.startsWith("register")) {
-                        raspuns = "Register received";
-                        if(request.startsWith("register1")){
-                           /* Create a professor */
-                            String professorJSON=request.substring(10);
-                            Professor professorFromJSON=gson.fromJson(professorJSON, Professor.class);
-                            try{
-                                ProfessorRepository.createProfessor(professorFromJSON,instance);
-                                raspuns+=" professor created!";
-                            }catch(RollbackException e){
-                                raspuns+=" but professor is already in the DB";
-                            }finally{
-                                out.println(raspuns);
-                                out.flush();
-                            }
-                        }
-                        else if(request.startsWith("register2")){
-                            /* Create a student*/
-                            String studentJSON=request.substring(10);
-                            Student studentFromJSON=gson.fromJson(studentJSON,Student.class);
-                            try{
-                                StudentRepository.createStudent(studentFromJSON,instance);
-                                raspuns+=" student created!";
-                            }catch(RollbackException e){
-                                raspuns += " but student is already in the DB";
-                            }finally{
-                                out.println(raspuns);
-                                out.flush();
-                            }
-                        }else{
-                            raspuns+=" but it is not a professor or student!";
+                if (request.length() > 8 && request.startsWith("register")) {
+                    raspuns = "Register received";
+                    if(request.startsWith("register1")){
+                        /* Create a professor */
+                        String professorJSON=request.substring(10);
+                        Professor professorFromJSON=gson.fromJson(professorJSON, Professor.class);
+                        try{
+                            ProfessorRepository.createProfessor(professorFromJSON,instance);
+                            raspuns+=" professor created!";
+                        }catch(RollbackException e){
+                            raspuns+=" but professor is already in the DB";
+                        }finally{
                             out.println(raspuns);
                             out.flush();
                         }
-
                     }
-                    else if (request.length() > 5 && request.startsWith("login")) {
+                    else if(request.startsWith("register2")){
+                        /* Create a student*/
+                        String studentJSON=request.substring(10);
+                        Student studentFromJSON=gson.fromJson(studentJSON,Student.class);
+                        try{
+                            StudentRepository.createStudent(studentFromJSON,instance);
+                            raspuns+=" student created!";
+                        }catch(RollbackException e){
+                            raspuns += " but student is already in the DB";
+                        }finally{
+                            out.println(raspuns);
+                            out.flush();
+                        }
+                    }else{
+                        raspuns+=" but it is not a professor or student!";
+                        out.println(raspuns);
+                        out.flush();
+                    }
+
+                }
+                else if (!logged) {
+//                    if (request.length() > 8 && request.startsWith("register")) {
+//                        raspuns = "Register received";
+//                        if(request.startsWith("register1")){
+//                           /* Create a professor */
+//                            String professorJSON=request.substring(10);
+//                            Professor professorFromJSON=gson.fromJson(professorJSON, Professor.class);
+//                            try{
+//                                ProfessorRepository.createProfessor(professorFromJSON,instance);
+//                                raspuns+=" professor created!";
+//                            }catch(RollbackException e){
+//                                raspuns+=" but professor is already in the DB";
+//                            }finally{
+//                                out.println(raspuns);
+//                                out.flush();
+//                            }
+//                        }
+//                        else if(request.startsWith("register2")){
+//                            /* Create a student*/
+//                            String studentJSON=request.substring(10);
+//                            Student studentFromJSON=gson.fromJson(studentJSON,Student.class);
+//                            try{
+//                                StudentRepository.createStudent(studentFromJSON,instance);
+//                                raspuns+=" student created!";
+//                            }catch(RollbackException e){
+//                                raspuns += " but student is already in the DB";
+//                            }finally{
+//                                out.println(raspuns);
+//                                out.flush();
+//                            }
+//                        }else{
+//                            raspuns+=" but it is not a professor or student!";
+//                            out.println(raspuns);
+//                            out.flush();
+//                        }
+//
+//                    }
+                     if (request.length() > 5 && request.startsWith("login")) {
                         raspuns="Login received ";
                         if(request.startsWith("login1")){
                             /* Login as professor */
