@@ -49,11 +49,11 @@ request the server accepts it and creates a new thread that will receive further
  In the application we deffne two types of communication operation: Interogations and updates. An interogation is a request that
 doesn't alter the database while an update modiffes it.
 1. The types of interogations are:
- Data request from a client for receiving the groups, tasks, students, grades...
+* Data request from a client for receiving the groups, tasks, students, grades...
 2. The types of updates are:
- A client signals an information that is not in the database already
+* A client signals an information that is not in the database already
 to the server (add student/task/group)
- A set of clients signal the absence of an event that is present in
+* A set of clients signal the absence of an event that is present in
 the database (remove student/task/group)
  ---------------------ADD FIGURE2 ````````````````````````````````````
 When a client signals an event that is not registered by the server
