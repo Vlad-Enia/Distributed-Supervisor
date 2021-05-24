@@ -76,31 +76,33 @@ Login an user in the app (login1 for professors, login2 for students)
 
 ### Grade 
 (manipulate grade objects)
-*grade add "taskName" "studentName" "grade" - Add a grade to the database (this command converts the parameters given into a gradeObject)
 
-*grade get all (Returns an array of grades OR a custom object used for the table reconstruction (Array of customObj), (customObj)={task,Array of Students, Array of grades))
+* grade add "taskName" "studentName" "grade" - Add a grade to the database (this command converts the parameters given into a gradeObject)
 
-grade update "taskName" "studentName" "grade" - Update a grade from the database (this command converts the parameters given into a gradeObject)
+* grade get all (Returns an array of grades OR a custom object used for the table reconstruction (Array of customObj), (customObj)={task,Array of Students, Array of grades))
+
+* grade update "taskName" "studentName" "grade" - Update a grade from the database (this command converts the parameters given into a gradeObject)
 
 ### Group-student
 (manipulate group-student relations)
-*groupStudent add "groupName" "studentName" -  Add a student to a group (this command converts the parameters given into a groupStudentObject)
 
-*groupStudent get all "groupName" - Returns an array of Students associated with that group
+* groupStudent add "groupName" "studentName" -  Add a student to a group (this command converts the parameters given into a groupStudentObject)
 
-*groupStudent delete "groupName" "studentName"  -  Remove a student from a group (this command converts the parameters given into a groupStudentObject)
+* groupStudent get all "groupName" - Returns an array of Students associated with that group
+
+* groupStudent delete "groupName" "studentName"  -  Remove a student from a group (this command converts the parameters given into a groupStudentObject)
 
 ### Group-task
-*groupTask add "groupName" "taskName" -  Add a task to a group (this command converts the parameters given into a groupTaskObject)
+* groupTask add "groupName" "taskName" -  Add a task to a group (this command converts the parameters given into a groupTaskObject)
 
-*groupTask get all "groupName" - Returns an array of Tasks associated with that group
+* groupTask get all "groupName" - Returns an array of Tasks associated with that group
 
-*groupTask delete "groupName" "taskName"  -  Remove a task from a group (this command converts the parameters given into a groupTaskObject)
+* groupTask delete "groupName" "taskName"  -  Remove a task from a group (this command converts the parameters given into a groupTaskObject)
 
 ### Task, Group, Student, Professor... (Unique entities)
-*Task|Group|Student add name -  Add entity to the database 
+* Task|Group|Student add name -  Add entity to the database 
 
-*Task|Group|Student name - Returns an array of entity objects
+* Task|Group|Student name - Returns an array of entity objects
 
-*Task|Group|Student delete name  -  Remove an entity
+* Task|Group|Student delete name  -  Remove an entity
 
