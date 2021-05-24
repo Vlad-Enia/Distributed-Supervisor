@@ -43,7 +43,8 @@ only by the client. When we want to create a connection the client
 will initiate the connection request. When receiving the connection
 request the server accepts it and creates a new thread that will receive further commands from the client or send updates to the client.
  
- ![Communication establishment](https://imgur.com/kkX215P)
+![figure1](https://user-images.githubusercontent.com/58529493/119331788-71790080-bc90-11eb-989f-fd6bde466e9b.png)
+
  
  ### 3. Client-Server communication
  In the application we deffne two types of communication operation: Interogations and updates. An interogation is a request that
@@ -55,7 +56,10 @@ doesn't alter the database while an update modiffes it.
 to the server (add student/task/group)
 * A set of clients signal the absence of an event that is present in
 the database (remove student/task/group)
- ---------------------ADD FIGURE2 ````````````````````````````````````
+
+![figure2](https://user-images.githubusercontent.com/58529493/119331897-8c4b7500-bc90-11eb-8cdd-2640ce73077b.png)
+
+
 When a client signals an event that is not registered by the server
 the thread responsible with the communication with that client will
 modify the database.
