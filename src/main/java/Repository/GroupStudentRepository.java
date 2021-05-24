@@ -26,10 +26,10 @@ public class GroupStudentRepository {
                 entityManager.close();
             }
             catch (RollbackException e){
-                throw new ParentKeyException(GroupProfessor.class.getName());
+                throw new ParentKeyException(GroupStudent.class.getName());
             }
         }
-        else throw  new DuplicatedObjectException(GroupProfessor.class.getName());
+        else throw  new DuplicatedObjectException(GroupStudent.class.getName());
     }
 
     public static GroupStudent findGroupStudent(GroupStudentPK pk, EntityManagerFactory session){
@@ -48,5 +48,14 @@ public class GroupStudentRepository {
         List<Student> foundStudents=q.getResultList();
         entityManager.close();
         return foundStudents;
+    }
+
+    public static void deleteRelation(GroupStudent groupStudent,EntityManagerFactory session){
+        EntityManager entityManager= session.createEntityManager();
+        entityManager.getTransaction().begin();
+        GroupStudent foundGroupStudent=entityManager.find(GroupStudent.class,new GroupStudentPK(groupStudent.getGroupname(), groupStudent.getStudent()));
+        entityManager.remove(foundGroupStudent);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }

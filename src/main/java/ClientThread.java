@@ -215,9 +215,9 @@ class ClientThread extends Thread {
 
                             var customGrade=createCustomGradeObject(foundGrades);
 
-                            String gradeList=gson.toJson(foundGrades);/* ans is an array of grades (lazy method) */
+                           // String gradeList=gson.toJson(foundGrades);/* ans is an array of grades (lazy method) */
                             String customGradeList=gson.toJson(customGrade); /* Check GradeCustomObject to see the format of this response */
-                            raspuns+=gradeList;
+                           // raspuns+=gradeList;
                             raspuns+=" "+customGradeList;
                             out.println(raspuns);
                             out.flush();
@@ -292,6 +292,15 @@ class ClientThread extends Thread {
                             out.println(raspuns);
                             out.flush();
                         }
+                    }
+                    else if(request.startsWith("group-student delete")){
+                        raspuns+="to be deleted, ";
+                        String groupStudentJson=request.substring(21);
+                        GroupStudent groupStudentFromJSON=gson.fromJson(groupStudentJson,GroupStudent.class);
+                        GroupStudentRepository.deleteRelation(groupStudentFromJSON,instance);
+                        raspuns+="success!";
+                        out.println(raspuns);
+                        out.flush();
                     }
                     else{
                         out.println(raspuns);
