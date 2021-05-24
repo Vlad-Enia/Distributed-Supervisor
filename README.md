@@ -37,7 +37,6 @@ Each student can be graded at a task.
 The table logic can be found in the <b> script.sql </b> file.
 
 ### 2.Estabilishing a connection
-Estabilishing a connection
 A connection between a client and a server can be established
 only by the client. When we want to create a connection the client
 will initiate the connection request. When receiving the connection
@@ -59,9 +58,41 @@ the database (remove student/task/group)
 
 ![figure2](https://user-images.githubusercontent.com/58529493/119331897-8c4b7500-bc90-11eb-8cdd-2640ce73077b.png)
 
-
 When a client signals an event that is not registered by the server
 the thread responsible with the communication with that client will
 modify the database.
 
+## Communication protocol:
+The server receives commands from clients as a string made of two components: 
+*Tokenized words that are used to identify the command
+*Auxiliary objects in JSON form (Using Google JSON API (Gson))
+
+Available commands:
+### Register
+Register an user to the app (register1 for professors register2 for students)
+
+### Login
+Login an user in the app (login1 for professors, login2 for students)
+
+### Grade 
+(manipulate grade objects)
+*grade add "taskName" "studentName" "grade" - Add a grade to the database (this command converts the parameters given into a gradeObject)
+*grade get all (Returns an array of grades OR a custom object used for the table reconstruction (Array of customObj), (customObj)={task,Array of Students, Array of grades))
+grade update "taskName" "studentName" "grade" - Update a grade from the database (this command converts the parameters given into a gradeObject)
+
+### Group-student
+(manipulate group-student relations)
+*groupStudent add "groupName" "studentName" -  Add a student to a group (this command converts the parameters given into a groupStudentObject)
+*groupStudent get all "groupName" - Returns an array of Students associated with that group
+*groupStudent delete "groupName" "studentName"  -  Remove a student from a group (this command converts the parameters given into a groupStudentObject)
+
+### Group-task
+*groupTask add "groupName" "taskName" -  Add a task to a group (this command converts the parameters given into a groupTaskObject)
+*groupTask get all "groupName" - Returns an array of Tasks associated with that group
+*groupTask delete "groupName" "taskName"  -  Remove a task from a group (this command converts the parameters given into a groupTaskObject)
+
+### Task, Group, Student, Professor... (Unique entities)
+*Task|Group|Student add name -  Add entity to the database 
+*Task|Group|Student name - Returns an array of entity objects
+*Task|Group|Student delete name  -  Remove an entity
 
