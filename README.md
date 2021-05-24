@@ -43,7 +43,7 @@ only by the client. When we want to create a connection the client
 will initiate the connection request. When receiving the connection
 request the server accepts it and creates a new thread that will receive further commands from the client or send updates to the client.
  
- ---------------------ADD FIGURE1 ````````````````````````````````````
+ ![Communication establishment](https://imgur.com/a/SOwMfY4)
  
  ### 3. Client-Server communication
  In the application we deffne two types of communication operation: Interogations and updates. An interogation is a request that
