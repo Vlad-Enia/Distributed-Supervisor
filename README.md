@@ -24,8 +24,8 @@ information faster to the clients.
 The information transmitted between the client and the server
 will be done using <b>sockets</b>.  
 
-All the data will be stored into a SQL database. This
-database can be modiffied over time by the clients and each update
+All the data will be stored into a SQL database. The database is manipulated using JPA (Hibernate).
+This database can be modiffied over time by the clients and each update
 of it can be sent to the connected clients.
 
 ## Implementation details
