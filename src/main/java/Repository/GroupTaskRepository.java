@@ -1,10 +1,7 @@
 package Repository;
 
 
-import Entity.Group;
-import Entity.GroupTask;
-import Entity.GroupTaskPK;
-import Entity.Task;
+import Entity.*;
 import Exceptions.DuplicatedObjectException;
 import Exceptions.ParentKeyException;
 
@@ -49,6 +46,15 @@ public class GroupTaskRepository {
         List<Task> foundTasks=q.getResultList();
         entityManager.close();
         return foundTasks;
+    }
+
+    public static void deleteRelation(GroupTask groupTask,EntityManagerFactory session){
+        EntityManager entityManager= session.createEntityManager();
+        entityManager.getTransaction().begin();
+        GroupTask foundGroupTask=entityManager.find(GroupTask.class,new GroupTaskPK(groupTask.getGroupname(), groupTask.getTask()));
+        entityManager.remove(foundGroupTask);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
 }

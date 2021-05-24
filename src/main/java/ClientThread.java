@@ -335,7 +335,16 @@ class ClientThread extends Thread {
                             out.println(raspuns);
                             out.flush();
                         }
-                    }else{
+                    }
+                    else if(request.startsWith("group-task delete")){
+                        raspuns+="to be deleted, ";
+                        String groupTaskJson=request.substring(18);
+                        GroupTask groupTaskFromJSON=gson.fromJson(groupTaskJson,GroupTask.class);
+                        GroupTaskRepository.deleteRelation(groupTaskFromJSON,instance);
+                        raspuns+="success!";
+                        out.println(raspuns);
+                        out.flush();
+                    } else{
                         out.println(raspuns);
                         out.flush();
                     }
